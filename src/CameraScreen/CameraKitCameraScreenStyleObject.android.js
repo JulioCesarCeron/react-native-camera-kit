@@ -21,6 +21,13 @@ export default styleObject = {
         justifyContent: 'space-between',
         padding: 14
     },
+    bottomButtonsFrame: {
+        height: ((height-400) / 2) - 20,
+        backgroundColor: '#00000077',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 14
+    },
     gap: {
         flex: 10,
         flexDirection: 'column'
