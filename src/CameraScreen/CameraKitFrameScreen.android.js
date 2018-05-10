@@ -3,67 +3,96 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import CameraScreenBase from './CameraKitCameraScreenBase';
 
 export default class CameraFrameScreen extends CameraScreenBase {
-    renderGap() {
-        return (
-            <View style={styles.renderGap}>
-                <View style={styles.frameTop} />
-                <View style={styles.frameCenter} />
-                <View style={styles.containerSides}>
-                    <View style={styles.frameSide} />
-                    <View style={styles.frameSide} />
-                </View>
-                <View style={styles.frameBottom} ></View>
-            </View>
-        );
-    }
+	constructor(props) {
+        super(props);
+	}
 
-    render() {
-        return (
-            <View
-                style={{ flex: 1, backgroundColor: 'transparent' }}
-                {...this.props}
-            >
-                {this.renderCamera()}
-                {this.renderGap()}
-                {this.renderBottomButtonsFrame()}
-            </View>
-        );
-    }
+	renderGap() {
+        const frameWidth = this.props.frameWidth ? this.props.frameWidth : 300;
+        const frameHeight = this.props.frameHeight ? this.props.frameHeight : 400;
+        const halfFrameWidth = frameWidth / 2;
+        const halfFrameHeight = frameHeight / 2;
+        const offsetHeight = this.props.offsetHeight ? this.props.offsetHeight : 0;
+
+        let { width, height } = Dimensions.get('window');
+
+		return (
+			<View style={styles.renderGap}>
+				<View style={[ styles.frameTop, { height: ((height - frameHeight) / 2) - offsetHeight } ]} />
+				<View
+					style={[
+						styles.frameCenter,
+						{
+							left: width / 2 - halfFrameWidth,
+							top: height / 2 - (halfFrameHeight + offsetHeight),
+							width: frameWidth,
+							height: frameHeight
+						}
+					]}
+				/>
+				<View style={styles.containerSides}>
+					<View
+						style={[
+							styles.frameSide,
+							{
+								height: frameHeight,
+								width: (width - frameWidth) / 2
+							}
+						]}
+					/>
+					<View
+						style={[
+							styles.frameSide,
+							{
+								height: frameHeight,
+								width: (width - frameWidth) / 2
+							}
+						]}
+					/>
+				</View>
+				<View style={styles.frameBottom} />
+			</View>
+		);
+	}
+
+	render() {
+		return (
+			<View style={{ flex: 1, backgroundColor: 'transparent' }} {...this.props}>
+				{this.renderCamera()}
+				{this.renderGap()}
+				{this.renderBottomButtonsFrame()}
+			</View>
+		);
+	}
 }
 
-let { width, height } = Dimensions.get('window');
+
 
 const styles = StyleSheet.create({
-    renderGap: {
-        flex: 10,
-        flexDirection: 'column',
-    },
-    frameCenter: {
-        position: 'absolute',
-        left: width / 2 - 150,
-        top: height / 2 - 210,
-        width: 300,
-        height: 400,
-        backgroundColor: 'transparent',
-        borderColor: 'blue',
-        borderWidth: 2,
-        zIndex: 10,
-    },
-    frameTop: {
-        height: ((height-400) / 2)-10,
-        backgroundColor: '#00000077',
-    },
-    containerSides: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    frameSide: {
-        height: 400,
-        width: (width - 300) / 2,
-        backgroundColor: '#00000077',
-    },
-    frameBottom: {
-        flex: 1,
-        backgroundColor: '#00000077',
-    },
+	renderGap: {
+		flex: 10,
+		flexDirection: 'column'
+	},
+	frameCenter: {
+		position: 'absolute',
+
+		backgroundColor: 'transparent',
+		borderColor: 'blue',
+		borderWidth: 2,
+		zIndex: 10
+	},
+	frameTop: {
+		backgroundColor: '#00000077'
+	},
+	containerSides: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	frameSide: {
+		backgroundColor: '#00000077'
+	},
+	frameBottom: {
+		flex: 1,
+		backgroundColor: '#00000077'
+	}
 });
