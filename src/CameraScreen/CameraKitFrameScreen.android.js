@@ -4,21 +4,21 @@ import CameraScreenBase from './CameraKitCameraScreenBase';
 
 export default class CameraFrameScreen extends CameraScreenBase {
 	constructor(props) {
-        super(props);
+		super(props);
 	}
 
 	renderGap() {
-        const frameWidth = this.props.frameWidth ? this.props.frameWidth : 300;
-        const frameHeight = this.props.frameHeight ? this.props.frameHeight : 400;
-        const halfFrameWidth = frameWidth / 2;
-        const halfFrameHeight = frameHeight / 2;
+		const frameWidth = this.props.frameWidth ? this.props.frameWidth : 300;
+		const frameHeight = this.props.frameHeight ? this.props.frameHeight : 400;
+		const halfFrameWidth = frameWidth / 2;
+		const halfFrameHeight = frameHeight / 2;
         const offsetHeight = this.props.offsetHeight ? this.props.offsetHeight : 0;
 
-        let { width, height } = Dimensions.get('window');
+		let { width, height } = Dimensions.get('window');
 
 		return (
 			<View style={styles.renderGap}>
-				<View style={[ styles.frameTop, { height: ((height - frameHeight) / 2) - offsetHeight } ]} />
+				<View style={[ styles.frameTop, { height: (height - frameHeight) / 2 - offsetHeight } ]} />
 				<View
 					style={[
 						styles.frameCenter,
@@ -26,7 +26,9 @@ export default class CameraFrameScreen extends CameraScreenBase {
 							left: width / 2 - halfFrameWidth,
 							top: height / 2 - (halfFrameHeight + offsetHeight),
 							width: frameWidth,
-							height: frameHeight
+							height: frameHeight,
+							borderColor: this.props.frameBorderColor ? this.props.frameBorderColor : 'blue',
+							borderWidth: this.props.frameBorderWidth ? this.props.frameBorderWidth : 2
 						}
 					]}
 				/>
@@ -66,8 +68,6 @@ export default class CameraFrameScreen extends CameraScreenBase {
 	}
 }
 
-
-
 const styles = StyleSheet.create({
 	renderGap: {
 		flex: 10,
@@ -75,10 +75,7 @@ const styles = StyleSheet.create({
 	},
 	frameCenter: {
 		position: 'absolute',
-
 		backgroundColor: 'transparent',
-		borderColor: 'blue',
-		borderWidth: 2,
 		zIndex: 10
 	},
 	frameTop: {

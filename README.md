@@ -240,6 +240,28 @@ Attribute | Values
 />
 ```
 
+
+
+# (added on this fork)
+
+## Frame 
+
+![](img/Frame.png)
+
+
+```js
+<CameraFrameScreen
+    onBottomButtonPressed={(event) => this.onBottomButtonPressed(event)}
+    frameWidth={300}
+    frameHeight={400}
+    offsetHeight={40}
+    frameBorderColor='blue'
+    frameBorderWidth={2}
+    captureButtonImage={require('../../assets/images/camera/cameraButton.png')}
+/>
+```
+
+
 ## Credits
 
 * [M13ProgressSuite](https://github.com/Marxon13/M13ProgressSuite) component by Marxon13 - A suite containing many tools to display progress information on iOS.
