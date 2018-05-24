@@ -130,8 +130,19 @@ public class SaveImageTask extends AsyncTask<byte[], Void, Void> {
     }
 
     private WritableMap saveToMediaStore(Bitmap image) {
+
         try {
-            String fileUri = MediaStore.Images.Media.insertImage(context.getContentResolver(), image, System.currentTimeMillis() + "", "");
+            Bitmap imageCropped = image;
+            int finalWidth = (int) (image.getWidth() * 0.70921985);
+            int finalHeight = (int) (image.getHeight() * 0.56737588);
+
+            int width = (int) ((image.getWidth() / 2) - (finalWidth/2) );
+            int height = (int) ((image.getHeight() / 2) - (finalHeight/2) - 185);
+
+            //cut image inside frame
+            imageCropped = Bitmap.createBitmap(image, width, height, finalWidth, finalHeight);
+
+            String fileUri = MediaStore.Images.Media.insertImage(context.getContentResolver(), imageCropped, System.currentTimeMillis() + "", "");
             Cursor cursor = context.getContentResolver().query(Uri.parse(fileUri), new String[]{
                     MediaStore.Images.ImageColumns.DATA,
                     MediaStore.Images.ImageColumns.DISPLAY_NAME
