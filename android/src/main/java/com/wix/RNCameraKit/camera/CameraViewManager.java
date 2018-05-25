@@ -34,6 +34,11 @@ import javax.annotation.Nullable;
 
 import static com.wix.RNCameraKit.camera.Orientation.getSupportedRotation;
 
+
+import android.util.Log;
+import static com.facebook.react.common.ReactConstants.TAG;
+
+
 @SuppressWarnings("MagicNumber deprecation")
 // We're still using Camera API 1, everything is deprecated
 public class CameraViewManager extends SimpleViewManager<CameraView> {
@@ -63,6 +68,11 @@ public class CameraViewManager extends SimpleViewManager<CameraView> {
             });
         }
     };
+
+    private static float heightFrameScreen = 0;
+    private static float widthFrameScreen = 0;
+    private static float offsetYFrameScreen = 0;
+
 
     public static Camera getCamera() {
         return camera;
@@ -104,6 +114,7 @@ public class CameraViewManager extends SimpleViewManager<CameraView> {
         }
         Camera.Parameters parameters = camera.getParameters();
         List supportedModes = parameters.getSupportedFlashModes();
+
         if (supportedModes != null && supportedModes.contains(mode)) {
             flashMode = mode;
             parameters.setFlashMode(flashMode);
@@ -331,6 +342,34 @@ public class CameraViewManager extends SimpleViewManager<CameraView> {
     public void setSurfaceBackground(CameraView view, @ColorInt int color) {
         view.setSurfaceBgColor(color);
     }
+
+    @ReactProp(name = "heightFrameScreen")
+    public void setHeightFrameScreen(CameraView view, float reactHeight) {
+        heightFrameScreen = reactHeight;
+    }
+
+    public static float getHeightFrameScreen() {
+        return heightFrameScreen;
+    }
+
+    @ReactProp(name = "widthFrameScreen")
+    public void setWidthFrameScreen(CameraView view, float reactWeight) {
+        widthFrameScreen = reactWeight;
+    }
+
+    public static float getWidthFrameScreen() {
+        return widthFrameScreen;
+    }
+
+        @ReactProp(name = "offsetYFrameScreen")
+    public void setOffsetYFrameScreen(CameraView view, float reactOffsetY) {
+        offsetYFrameScreen = reactOffsetY;
+    }
+
+    public static float getOffsetYFrameScreen() {
+        return offsetYFrameScreen;
+    }
+
 
     public static synchronized Rect getFramingRectInPreview(int previewWidth, int previewHeight) {
         return cameraViews.peek().getFramingRectInPreview(previewWidth, previewHeight);
