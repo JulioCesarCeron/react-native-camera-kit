@@ -22,6 +22,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableMap;
 import com.wix.RNCameraKit.camera.CameraViewManager;
+import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -133,11 +134,19 @@ public class SaveImageTask extends AsyncTask<byte[], Void, Void> {
 
         try {
             Bitmap imageCropped = image;
-            int finalWidth = (int) (image.getWidth() * 0.70921985);
-            int finalHeight = (int) (image.getHeight() * 0.56737588);
+            
+            int imageHeight = image.getHeight();
+            int imageWidth = image.getWidth();
 
-            int width = (int) ((image.getWidth() / 2) - (finalWidth/2) );
-            int height = (int) ((image.getHeight() / 2) - (finalHeight/2) - 185);
+            int finalWidth = (int) (imageWidth * (CameraViewManager.getWidthFrameScreen() / 100));
+            int finalHeight = (int) (imageHeight * (CameraViewManager.getHeightFrameScreen() / 100));
+            int offsetY = (int) (imageHeight * (CameraViewManager.getOffsetYFrameScreen() / 100));
+
+            
+            Log.d(TAG, "JAVA HEIGHT FROM REACT: " + CameraViewManager.getHeightFrameScreen());
+
+            int width = (int) ((imageWidth / 2) - (finalWidth/2) );
+            int height = (int) ((imageHeight / 2) - (finalHeight/2) - offsetY);
 
             //cut image inside frame
             imageCropped = Bitmap.createBitmap(image, width, height, finalWidth, finalHeight);
@@ -155,7 +164,7 @@ public class SaveImageTask extends AsyncTask<byte[], Void, Void> {
             long fileSize = new File(filePath).length();
             cursor.close();
 
-            return createImageInfo(filePath, filePath, fileName, fileSize, image.getWidth(), image.getHeight());
+            return createImageInfo(filePath, filePath, fileName, fileSize, imageWidth, imageHeight);
         } catch (Exception e) {
             return null;
         }
