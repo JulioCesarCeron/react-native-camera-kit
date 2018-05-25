@@ -8,14 +8,14 @@ export default class CameraFrameScreen extends CameraScreenBase {
 	}
 
 	renderGap() {
-		const frameWidth = this.props.frameWidth ? this.props.frameWidth : 300;
-		const frameHeight = this.props.frameHeight ? this.props.frameHeight : 400;
+        let { width, height } = Dimensions.get('window');
+
+        const frameWidth = Number((width * ((this.props.frameWidth ? this.props.frameWidth : 56.73) / 100)).toFixed(0))
+        const frameHeight = Number((height * ((this.props.frameHeight ? this.props.frameHeight : 70.92) / 100)).toFixed(0))
 		const halfFrameWidth = frameWidth / 2;
-		const halfFrameHeight = frameHeight / 2;
-        const offsetHeight = this.props.offsetHeight ? this.props.offsetHeight : 0;
-
-		let { width, height } = Dimensions.get('window');
-
+        const halfFrameHeight = frameHeight / 2;
+        const offsetHeight = Number((height * ((this.props.offsetHeight ? this.props.offsetHeight : 5.67) / 100)).toFixed(0));
+        
 		return (
 			<View style={styles.renderGap}>
 				<View style={[ styles.frameTop, { height: (height - frameHeight) / 2 - offsetHeight } ]} />
