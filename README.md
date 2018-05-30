@@ -252,10 +252,10 @@ Attribute | Values
 ```js
 <CameraFrameScreen
     onBottomButtonPressed={(event) => this.onBottomButtonPressed(event)}
-    frameWidth={300}
-    frameHeight={400}
-    offsetHeight={40}
-    frameBorderColor='blue'
+    frameWidth={70.92} //percentage
+    frameHeight={56.73} //percentage 
+    offsetHeight={5.67} //percentage
+    frameBorderColor="blue"
     frameBorderWidth={2}
     captureButtonImage={require('../../assets/images/camera/cameraButton.png')}
 />
