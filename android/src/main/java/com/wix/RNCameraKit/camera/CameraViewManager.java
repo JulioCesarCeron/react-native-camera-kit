@@ -102,7 +102,14 @@ public class CameraViewManager extends SimpleViewManager<CameraView> {
             @Override
             public void onOrientationChanged(@IntRange(from = -1, to = 359) int angle) {
                 if (angle == OrientationEventListener.ORIENTATION_UNKNOWN) return;
-                setCameraRotation(359 - angle, false);
+                
+                /*************************************************************************************************************/
+                //origintal function of react-native-camera-kit,
+                //is disabled for now, because this app is no suport landscape and this function apparently not work correctly
+                //setCameraRotation(359 - angle, false);
+                /*************************************************************************************************************/
+
+                setCameraRotation(0, false);
             }
         };
         orientationListener.enable();
