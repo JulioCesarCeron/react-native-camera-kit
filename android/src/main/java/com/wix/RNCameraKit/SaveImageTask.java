@@ -142,9 +142,6 @@ public class SaveImageTask extends AsyncTask<byte[], Void, Void> {
             int finalHeight = (int) (imageHeight * (CameraViewManager.getHeightFrameScreen() / 100));
             int offsetY = (int) (imageHeight * (CameraViewManager.getOffsetYFrameScreen() / 100));
 
-            
-            Log.d(TAG, "JAVA HEIGHT FROM REACT: " + CameraViewManager.getHeightFrameScreen());
-
             int width = (int) ((imageWidth / 2) - (finalWidth/2) );
             int height = (int) ((imageHeight / 2) - (finalHeight/2) - offsetY);
 
